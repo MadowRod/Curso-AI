@@ -1,73 +1,134 @@
-# Cadastro App — Full Stack CRUD
+🚗 Sistema de Concessionária Full Stack
 
-Aplicação full stack de cadastro de pessoas com **React** (frontend) e **Spring Boot** (backend).
+Sistema full stack desenvolvido com React + Spring Boot, com autenticação JWT, CRUD completo de veículos e integração opcional com API FIPE para sugestão de preços.
 
-## Estrutura do projeto
+📌 Visão Geral
 
-```
-cadastro-app/
-├── backend/          # API REST Spring Boot
-│   └── src/main/java/com/example/cadastro/
-│       ├── controller/
-│       ├── service/
-│       ├── repository/
-│       ├── entity/
-│       └── config/
-└── frontend/         # React + Vite
-    └── src/
-        ├── api/
-        ├── components/
-        └── pages/
-```
+A aplicação simula um sistema de gerenciamento de veículos de uma concessionária, permitindo:
 
-## Funcionalidades
+Cadastro de usuários com autenticação
+Login seguro com JWT
+CRUD completo de veículos
+Busca e filtros dinâmicos
+Proteção de rotas no frontend e backend
+Sugestão de preço via API FIPE (recurso auxiliar)
 
-- Listagem de registros
-- Cadastro
-- Edição
-- Busca por nome ou e-mail
-- Exclusão
+🧱 Tecnologias Utilizadas
+Backend
+Java 17+
+Spring Boot
+Spring Security + JWT
+Spring Data JPA
+H2 Database
+Maven
+Frontend
+React
+Axios
+React Router DOM
+Context API / Hooks (useState, useEffect)
 
-## Pré-requisitos
+🏗️ Arquitetura do Backend
+controller/   → VeiculoController, AuthController  
+service/      → VeiculoService, AuthService  
+repository/   → VeiculoRepository, UsuarioRepository  
+entity/       → Veiculo, Usuario, Role  
+dto/          → Requests e Responses  
+security/     → JWT, filtros e SecurityConfig  
+exception/    → GlobalExceptionHandler  
+🔐 Autenticação
 
-- Java 17+
-- Node.js 18+
-- Maven (ou IntelliJ IDEA com suporte Maven)
+O sistema utiliza JWT (JSON Web Token) para proteção das rotas.
 
-## Backend (Spring Boot)
+Usuário padrão:
 
-```bash
+📧 Email: admin@admin.com
+🔑 Senha: admin123
+
+Requisição autenticada:
+
+Authorization: Bearer <token>
+📡 Endpoints da API
+🔐 Autenticação
+
+Método	Rota	Descrição
+
+POST	/auth/register	Cadastro de usuário
+POST	/auth/login	Login (retorna JWT)
+
+🚗 Veículos (protegido)
+
+Método	Rota	Descrição
+GET	/veiculos	Listar veículos (com busca ?busca=)
+GET	/veiculos/{id}	Buscar veículo por ID
+POST	/veiculos	Criar veículo
+PUT	/veiculos/{id}	Atualizar veículo
+DELETE	/veiculos/{id}	Excluir veículo
+
+🎨 Frontend (React)
+
+📄 Páginas
+
+/login → Login do usuário
+/register → Cadastro de usuário
+/ → Listagem de veículos (CRUD + busca)
+/cadastro → Criar veículo
+/editar/:id → Editar veículo
+/veiculos/:id → Detalhes do veículo
+
+🔗 Integração
+
+Axios configurado para http://localhost:8080
+Token JWT armazenado e injetado automaticamente
+Rotas protegidas com ProtectedRoute
+Atualização automática da lista após CRUD
+
+📊 Banco de Dados
+
+H2 Database (em memória)
+Dados persistidos durante execução
+Estrutura baseada em entidades JPA
+
+⚙️ FIPE (Recurso Auxiliar)
+
+A API FIPE é usada apenas como suporte:
+
+Sugestão de preço no formulário
+Auxílio na seleção de marca/modelo/ano
+
+❗ Não é usada como fonte principal de dados.
+
+▶️ Como Executar o Projeto
+🔧 Backend
 cd backend
 mvn spring-boot:run
-```
-
-A API ficará disponível em `http://localhost:8080`.
-
-### Endpoints
-
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | `/api/pessoas` | Lista todas as pessoas |
-| GET | `/api/pessoas?busca=termo` | Busca por nome ou e-mail |
-| GET | `/api/pessoas/{id}` | Busca por ID |
-| POST | `/api/pessoas` | Cria um registro |
-| PUT | `/api/pessoas/{id}` | Atualiza um registro |
-| DELETE | `/api/pessoas/{id}` | Exclui um registro |
-
-Banco de dados: **H2 em memória** (console em `http://localhost:8080/h2-console`).
-
-## Frontend (React)
-
-```bash
+💻 Frontend
 cd frontend
 npm install
 npm run dev
-```
+🌐 Acesso
 
-A aplicação ficará disponível em `http://localhost:5173`.
+Abra no navegador:
 
-## Tecnologias
+http://localhost:5173
+🔄 Fluxo da Aplicação
+React Frontend
+     ↓ Axios + JWT
+Spring Boot API
+     ↓
+H2 Database
+     ↓ (auxiliar)
+API FIPE
+✨ Funcionalidades
 
-**Frontend:** React, React Router, Axios, Vite, useState, useEffect
+✔ Autenticação JWT
+✔ Cadastro de usuários
+✔ CRUD completo de veículos
+✔ Busca e filtros
+✔ Rotas protegidas
+✔ Integração frontend + backend
+✔ Sugestão de preço via FIPE
+✔ Arquitetura em camadas
 
-**Backend:** Spring Boot, Spring Data JPA, H2, arquitetura em camadas (Controller, Service, Repository, Entity)
+📌 Observação
+
+O sistema foi projetado seguindo boas práticas de arquitetura full stack, separação de responsabilidades e segurança com autenticação JWT.
